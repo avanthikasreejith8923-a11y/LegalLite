@@ -1,34 +1,39 @@
-import google.generativeai as genai
 import os
+from groq import Groq
 from dotenv import load_dotenv
 
 load_dotenv()
 
-genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
-model = genai.GenerativeModel("gemini-2.0-flash")
+client = Groq(api_key=os.getenv("GROQ_API_KEY"))
 
 def summarize_document(text):
     """
     Takes extracted text from a legal document
     Returns a plain English summary
     """
-    prompt = f"""
-    You are a legal document assistant. 
-    Read the following legal document and explain it in very simple, 
-    plain English that anyone can understand.
-    
-    Structure your response as:
-    1. What is this document about?
-    2. Key points to know
-    3. Important dates or numbers mentioned
-    4. What you are agreeing to
-    
-    Document:
-    {text}
-    """
-    
-    response = model.generate_content(prompt)
-    return response.text
+    response = client.chat.completions.create(
+        model="llama-3.3-70b-versatile",
+        messages=[
+            {
+                "role": "system",
+                "content": "You are a legal document assistant who explains legal documents in very simple plain English that anyone can understand."
+            },
+            {
+                "role": "user",
+                "content": f"""Read the following legal document and explain it simply.
+                
+Structure your response as:
+1. What is this document about?
+2. Key points to know
+3. Important dates or numbers mentioned
+4. What you are agreeing to
+
+Document:
+{text}"""
+            }
+        ]
+    )
+    return response.choices[0].message.content
 
 
 def detect_risks(text):
@@ -36,29 +41,35 @@ def detect_risks(text):
     Takes extracted text
     Returns list of risky clauses found
     """
-    prompt = f"""
-    You are a legal risk detector.
-    Read this legal document and find any risky or unfair clauses.
-    
-    Look for:
-    - Hidden penalties
-    - Auto renewal clauses
-    - Unfair termination conditions
-    - Vague payment terms
-    - One sided conditions
-    
-    List each risk clearly and simply.
-    
-    Document:
-    {text}
-    """
-    
-    response = model.generate_content(prompt)
-    return response.text
+    response = client.chat.completions.create(
+        model="llama-3.3-70b-versatile",
+        messages=[
+            {
+                "role": "system",
+                "content": "You are a legal risk detector who finds risky or unfair clauses in legal documents."
+            },
+            {
+                "role": "user",
+                "content": f"""Read this legal document and find any risky or unfair clauses.
+
+Look for:
+- Hidden penalties
+- Auto renewal clauses
+- Unfair termination conditions
+- Vague payment terms
+- One sided conditions
+
+List each risk clearly and simply.
+
+Document:
+{text}"""
+            }
+        ]
+    )
+    return response.choices[0].message.content
 
 
 if __name__ == "__main__":
-    # Test it with our test PDF
     from core.extractor import extract_text
     
     text = extract_text("test.pdf")
