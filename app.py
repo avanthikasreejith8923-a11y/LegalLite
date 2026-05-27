@@ -3,6 +3,7 @@ from core.extractor import extract_text
 from core.summarizer import summarize_document, detect_risks
 from core.rag import create_vector_store, ask_question
 from core.translator import translate_text
+from core.voice import text_to_speech
 import tempfile
 import os
 
@@ -54,14 +55,16 @@ if uploaded_file:
     if "chat_history" not in st.session_state:
         st.session_state.chat_history = []
 
+    if "summary" not in st.session_state:
+        with st.spinner("Summarizing..."):
+            st.session_state.summary = summarize_document(text)
+
     # Summary and Risk
     col1, col2 = st.columns(2)
 
     with col1:
         st.subheader("Plain English Summary")
-        with st.spinner("Summarizing..."):
-            summary = summarize_document(text)
-        st.write(summary)
+        st.write(st.session_state.summary)
 
     with col2:
         st.subheader("Risk Flags")
@@ -71,9 +74,48 @@ if uploaded_file:
 
     st.divider()
 
+    # Voice section
+    st.subheader("Listen to Summary")
+
+    voice_languages = {
+        "English": "en",
+        "Malayalam": "ml",
+        "Hindi": "hi",
+        "Tamil": "ta"
+    }
+
+    selected_voice_lang = st.selectbox(
+        "Select voice language",
+        list(voice_languages.keys()),
+        key="voice_lang"
+    )
+
+    if st.button("Generate Audio"):
+        with st.spinner("Generating audio..."):
+            if selected_voice_lang == "English":
+                audio_text = st.session_state.summary
+                lang_code = "en"
+            else:
+                lang_code = voice_languages[selected_voice_lang]
+                audio_text = translate_text(
+                    st.session_state.summary,
+                    lang_code
+                )
+
+            audio_file = text_to_speech(
+                audio_text,
+                lang_code,
+                "summary_audio.mp3"
+            )
+
+        st.audio("summary_audio.mp3")
+        st.success("Audio ready. Press play above.")
+
+    st.divider()
+
     # Translation section
     st.subheader("Translate Summary")
-    
+
     languages = {
         "Malayalam": "ml",
         "Hindi": "hi",
@@ -84,15 +126,19 @@ if uploaded_file:
         "French": "fr",
         "Arabic": "ar"
     }
-    
+
     selected_lang = st.selectbox(
         "Select language",
-        list(languages.keys())
+        list(languages.keys()),
+        key="translate_lang"
     )
-    
+
     if st.button("Translate"):
         with st.spinner(f"Translating to {selected_lang}..."):
-            translated = translate_text(summary, languages[selected_lang])
+            translated = translate_text(
+                st.session_state.summary,
+                languages[selected_lang]
+            )
         st.success(f"Translation ({selected_lang}):")
         st.write(translated)
 
