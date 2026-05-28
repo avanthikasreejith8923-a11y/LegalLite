@@ -104,6 +104,7 @@ st.markdown("""
     font-family: 'Inter', sans-serif !important;
     letter-spacing: 0.1em !important;
     width: 100% !important;
+    -webkit-text-fill-color: #FFFFFF !important;
 }
 
 .stButton button:hover {
@@ -119,10 +120,15 @@ st.markdown("""
 }
 
 [data-testid="stFileUploader"] {
-    background-color: #FAFAFA;
-    border-radius: 6px;
-    border: 1.5px dashed #AAAAAA;
-    padding: 12px;
+    background-color: #FFFFFF !important;
+    border-radius: 6px !important;
+    border: 1px solid #DDDDDD !important;
+    padding: 12px !important;
+}
+
+[data-testid="stFileUploader"] > div {
+    background-color: #FFFFFF !important;
+    border: none !important;
 }
 
 [data-testid="stChatInput"] {
