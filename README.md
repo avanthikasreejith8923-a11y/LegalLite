@@ -71,6 +71,8 @@ RAG Chatbot answers questions from document only
 ---
 
 ## Project Structure
+
+```
 legallite/
 ├── app.py                  Streamlit UI
 ├── core/
@@ -82,8 +84,7 @@ legallite/
 ├── requirements.txt        All dependencies
 ├── .env                    API keys (not pushed to GitHub)
 └── README.md
-
----
+```
 
 ## Run Locally
 
