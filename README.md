@@ -29,24 +29,25 @@ AI Document Chatbot — Ask any question about your document and get answers gro
 ---
 
 ## How It Works
-User uploads PDF or image
-|
-Text extraction using pdfplumber or EasyOCR
-|
-LLM processing using Groq and Llama 3
-|
-|--- Plain English Summary
-|--- Risk Flag Detection
-|--- Multilingual Translation
-|--- Voice Output
-|
-Document chunking and embeddings using sentence-transformers
-|
-Vector storage using FAISS
-|
-RAG Chatbot answers questions from document only
 
----
+```
+User uploads PDF or image
+        |
+Text extraction using pdfplumber or EasyOCR
+        |
+LLM processing using Groq and Llama 3
+        |
+        |--- Plain English Summary
+        |--- Risk Flag Detection
+        |--- Multilingual Translation
+        |--- Voice Output
+        |
+Document chunking and embeddings using sentence-transformers
+        |
+Vector storage using FAISS
+        |
+RAG Chatbot answers questions from document only
+```
 
 ## Tech Stack
 
