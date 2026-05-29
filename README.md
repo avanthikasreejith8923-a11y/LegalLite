@@ -105,9 +105,15 @@ Open your browser at http://localhost:8501
 
 ## Concepts Used
 
-Retrieval Augmented Generation, Vector embeddings and semantic search, Large Language Model integration, Optical Character Recognition, Natural Language Processing, Prompt engineering, Multilingual AI
+## Concepts Used
 
----
+- Retrieval Augmented Generation
+- Vector embeddings and semantic search
+- Large Language Model integration
+- Optical Character Recognition
+- Natural Language Processing
+- Prompt engineering
+- Multilingual AI
 
 ## Disclaimer
 
