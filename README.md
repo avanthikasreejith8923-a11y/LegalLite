@@ -135,9 +135,35 @@ Open your browser at http://localhost:8501
 This tool is for informational purposes only. It is not a substitute for professional legal advice.
 
 ---
-
 ## Author
 
-Avanthika S
-B.Tech Computer Science
+Avanthika Sreejith
+
+GitHub: avanthikasreejith8923-a11y
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 GitHub: avanthikasreejith8923-a11y
