@@ -1,8 +1,8 @@
 # LegalLite
 
-AI that reads the fine print so you don't have to.
+-AI that reads the fine print so you don't have to.
 
-Legal documents are long, complex and full of clauses that are easy to miss. LegalLite changes that — upload any contract, agreement or notice and instantly get a clear breakdown of what it means, what is risky, and what to watch out for.
+-Legal documents are long, complex and full of clauses that are easy to miss. LegalLite changes that — upload any contract, agreement or notice and instantly get a clear breakdown of what it means, what is risky, and what to watch out for.
 
 ---
 
@@ -14,17 +14,17 @@ legallite.streamlit.app
 
 ## Features
 
-Document Upload — Upload any PDF, JPG or PNG file including rental agreements, employment letters, NDAs, loan documents and insurance papers.
+-Document Upload — Upload any PDF, JPG or PNG file including rental agreements, employment letters, NDAs, loan documents and insurance papers.
 
-Plain English Summary — Reads the entire document and explains it in simple language anyone can understand. No legal jargon.
+-Plain English Summary — Reads the entire document and explains it in simple language anyone can understand. No legal jargon.
 
-Risk Detection — Automatically identifies hidden penalties, auto-renewal clauses, unfair termination conditions, vague payment terms and one-sided conditions.
+-Risk Detection — Automatically identifies hidden penalties, auto-renewal clauses, unfair termination conditions, vague payment terms and one-sided conditions.
 
-Multilingual Translation — Explains your document in Malayalam, Hindi, Tamil, Telugu, Kannada, Bengali, French and Arabic.
+-Multilingual Translation — Explains your document in Malayalam, Hindi, Tamil, Telugu, Kannada, Bengali, French and Arabic.
 
-Voice Output — Reads the summary aloud in your chosen language using AI text-to-speech.
+-Voice Output — Reads the summary aloud in your chosen language using AI text-to-speech.
 
-AI Document Chatbot — Ask any question about your document and get answers grounded in the actual document content. Built on a RAG pipeline using FAISS and sentence-transformers.
+-AI Document Chatbot — Ask any question about your document and get answers grounded in the actual document content. Built on a RAG pipeline using FAISS and sentence-transformers.
 
 ---
 
@@ -82,21 +82,21 @@ legallite/
 ```
 ## Run Locally
 
-Clone the repository
+-Clone the repository
 git clone https://github.com/avanthikasreejith8923-a11y/LegalLite.git
 cd LegalLite
 
-Create and activate virtual environment
+-Create and activate virtual environment
 python -m venv venv
 source venv/Scripts/activate
 
-Install dependencies
+-Install dependencies
 pip install -r requirements.txt
 
-Create a .env file and add your Groq API key
+-Create a .env file and add your Groq API key
 GROQ_API_KEY=your_key_here
 
-Run the app
+-Run the app
 streamlit run app.py
 
 Open your browser at http://localhost:8501
@@ -122,11 +122,11 @@ This tool is for informational purposes only. It is not a substitute for profess
 ---
 
 ## Author
-
+'''
 Avanthika Sreejith
 B.Tech Computer Science
 GitHub: avanthikasreejith8923-a11y
-
+'''
 
 
 
