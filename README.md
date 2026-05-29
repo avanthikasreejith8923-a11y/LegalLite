@@ -14,19 +14,14 @@ legallite.streamlit.app
 
 ## Features
 
--Document Upload — Upload any PDF, JPG or PNG file including rental agreements, employment letters, NDAs, loan documents and insurance papers.
+- Document Upload — Upload any PDF, JPG or PNG file including rental agreements, employment letters, NDAs, loan documents and insurance papers.
+- Plain English Summary — Reads the entire document and explains it in simple language anyone can understand. No legal jargon.
+- Risk Detection — Automatically identifies hidden penalties, auto-renewal clauses, unfair termination conditions, vague payment terms and one-sided conditions.
+- Multilingual Translation — Explains your document in Malayalam, Hindi, Tamil, Telugu, Kannada, Bengali, French and Arabic.
+- Voice Output — Reads the summary aloud in your chosen language using AI text-to-speech.
+- AI Document Chatbot — Ask any question about your document and get answers grounded in the actual document content. Built on a RAG pipeline using FAISS and sentence-transformers.
 
--Plain English Summary — Reads the entire document and explains it in simple language anyone can understand. No legal jargon.
-
--Risk Detection — Automatically identifies hidden penalties, auto-renewal clauses, unfair termination conditions, vague payment terms and one-sided conditions.
-
--Multilingual Translation — Explains your document in Malayalam, Hindi, Tamil, Telugu, Kannada, Bengali, French and Arabic.
-
--Voice Output — Reads the summary aloud in your chosen language using AI text-to-speech.
-
--AI Document Chatbot — Ask any question about your document and get answers grounded in the actual document content. Built on a RAG pipeline using FAISS and sentence-transformers.
-
-
+---
 
 ## How It Works
 
@@ -48,6 +43,8 @@ Vector storage using FAISS
         |
 RAG Chatbot answers questions from document only
 ```
+
+---
 
 ## Tech Stack
 
@@ -80,30 +77,46 @@ legallite/
 ├── .env                    API keys (not pushed to GitHub)
 └── README.md
 ```
+
+---
+
 ## Run Locally
 
--Clone the repository
+Clone the repository
+
+```
 git clone https://github.com/avanthikasreejith8923-a11y/LegalLite.git
 cd LegalLite
+```
 
--Create and activate virtual environment
+Create and activate virtual environment
+
+```
 python -m venv venv
 source venv/Scripts/activate
+```
 
--Install dependencies
+Install dependencies
+
+```
 pip install -r requirements.txt
+```
 
--Create a .env file and add your Groq API key
+Create a .env file and add your Groq API key
+
+```
 GROQ_API_KEY=your_key_here
+```
 
--Run the app
+Run the app
+
+```
 streamlit run app.py
+```
 
 Open your browser at http://localhost:8501
 
 ---
-
-## Concepts Used
 
 ## Concepts Used
 
@@ -115,6 +128,8 @@ Open your browser at http://localhost:8501
 - Prompt engineering
 - Multilingual AI
 
+---
+
 ## Disclaimer
 
 This tool is for informational purposes only. It is not a substitute for professional legal advice.
@@ -122,16 +137,7 @@ This tool is for informational purposes only. It is not a substitute for profess
 ---
 
 ## Author
-'''
-Avanthika Sreejith
+
+Avanthika S
 B.Tech Computer Science
 GitHub: avanthikasreejith8923-a11y
-'''
-
-
-
-
-
-
-
-
