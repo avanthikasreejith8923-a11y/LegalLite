@@ -5,6 +5,9 @@ python-dotenv
 groq
 langchain
 langchain-community
+langchain-text-splitters
 faiss-cpu
 sentence-transformers
 fpdf
+deep-translator
+gtts
