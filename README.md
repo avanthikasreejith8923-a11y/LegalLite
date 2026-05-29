@@ -1,8 +1,8 @@
 # LegalLite
 
--AI that reads the fine print so you don't have to.
+AI that reads the fine print so you don't have to.
 
--Legal documents are long, complex and full of clauses that are easy to miss. LegalLite changes that — upload any contract, agreement or notice and instantly get a clear breakdown of what it means, what is risky, and what to watch out for.
+Legal documents are long, complex and full of clauses that are easy to miss. LegalLite changes that — upload any contract, agreement or notice and instantly get a clear breakdown of what it means, what is risky, and what to watch out for.
 
 ---
 
@@ -26,7 +26,7 @@ legallite.streamlit.app
 
 -AI Document Chatbot — Ask any question about your document and get answers grounded in the actual document content. Built on a RAG pipeline using FAISS and sentence-transformers.
 
----
+
 
 ## How It Works
 
