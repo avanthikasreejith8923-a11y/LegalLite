@@ -19,7 +19,7 @@ https://legallite.streamlit.app/
 - Risk Detection — Automatically identifies hidden penalties, auto-renewal clauses, unfair termination conditions, vague payment terms and one-sided conditions.
 - Multilingual Translation — Explains your document in Malayalam, Hindi, Tamil, Telugu, Kannada, Bengali, French and Arabic.
 - Voice Output — Reads the summary aloud in your chosen language using AI text-to-speech.
-- AI Document Chatbot — Ask any question about your document and get answers grounded in the actual document content. Built on a RAG pipeline using FAISS and sentence-transformers.
+- AI Document Chatbot — Ask any question about your document and get answers grounded in the actual document content. Built on a hybrid RAG pipeline combining FAISS semantic search and BM25 keyword search.
 
 ---
 
@@ -39,7 +39,10 @@ LLM processing using Groq and Llama 3
         |
 Document chunking and embeddings using sentence-transformers
         |
-Vector storage using FAISS
+        |--- Semantic search using FAISS
+        |--- Keyword search using BM25
+        |
+Hybrid retrieval combines both results
         |
 RAG Chatbot answers questions from document only
 ```
@@ -52,7 +55,7 @@ RAG Chatbot answers questions from document only
 |---|---|
 | Frontend | Streamlit |
 | LLM | Groq API, Llama 3.3 70B |
-| RAG Pipeline | LangChain, FAISS |
+| RAG Pipeline | LangChain, FAISS, BM25 Hybrid Search |
 | Embeddings | sentence-transformers, all-MiniLM-L6-v2 |
 | PDF Extraction | pdfplumber |
 | Image OCR | EasyOCR |
@@ -70,7 +73,7 @@ legallite/
 ├── core/
 │   ├── extractor.py        PDF and image text extraction
 │   ├── summarizer.py       LLM summarization and risk detection
-│   ├── rag.py              RAG pipeline and document chatbot
+│   ├── rag.py              RAG pipeline with hybrid search
 │   ├── translator.py       Multilingual translation
 │   └── voice.py            Text to speech output
 ├── requirements.txt        All dependencies
@@ -121,7 +124,9 @@ Open your browser at http://localhost:8501
 ## Concepts Used
 
 - Retrieval Augmented Generation
+- Hybrid search combining semantic and keyword retrieval
 - Vector embeddings and semantic search
+- BM25 keyword ranking
 - Large Language Model integration
 - Optical Character Recognition
 - Natural Language Processing
@@ -135,50 +140,9 @@ Open your browser at http://localhost:8501
 This tool is for informational purposes only. It is not a substitute for professional legal advice.
 
 ---
+
 ## Author
 
 Avanthika Sreejith
 
 GitHub: avanthikasreejith8923-a11y
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
