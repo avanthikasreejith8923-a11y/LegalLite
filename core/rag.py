@@ -1,61 +1,99 @@
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_community.vectorstores import FAISS
 from langchain_community.embeddings import HuggingFaceEmbeddings
+from rank_bm25 import BM25Okapi
 from groq import Groq
 import os
+import numpy as np
 from dotenv import load_dotenv
 
 load_dotenv()
 
 client = Groq(api_key=os.getenv("GROQ_API_KEY"))
 
+
 def create_vector_store(text):
     """
     Takes extracted document text
     Splits into chunks and stores as embeddings in FAISS
+    Also creates BM25 index for keyword search
     """
-    # Split document into chunks
     splitter = RecursiveCharacterTextSplitter(
         chunk_size=500,
         chunk_overlap=50
     )
     chunks = splitter.split_text(text)
 
-    # Convert chunks to embeddings and store in FAISS
     embeddings = HuggingFaceEmbeddings(
         model_name="all-MiniLM-L6-v2"
     )
     vector_store = FAISS.from_texts(chunks, embeddings)
-    
-    return vector_store
+
+    # Create BM25 index from same chunks
+    tokenized_chunks = [chunk.lower().split() for chunk in chunks]
+    bm25 = BM25Okapi(tokenized_chunks)
+
+    return vector_store, bm25, chunks
 
 
-def ask_question(vector_store, question, chat_history=[]):
+def hybrid_search(vector_store, bm25, chunks, question, k=5):
     """
-    Takes vector store, user question and chat history
+    Combines FAISS semantic search and BM25 keyword search
+    Returns top k most relevant chunks
+    """
+    # Semantic search using FAISS
+    semantic_results = vector_store.similarity_search(question, k=k)
+    semantic_chunks = [doc.page_content for doc in semantic_results]
+
+    # Keyword search using BM25
+    tokenized_question = question.lower().split()
+    bm25_scores = bm25.get_scores(tokenized_question)
+    top_bm25_indices = np.argsort(bm25_scores)[::-1][:k]
+    bm25_chunks = [chunks[i] for i in top_bm25_indices]
+
+    # Combine both results and remove duplicates
+    combined = semantic_chunks + bm25_chunks
+    seen = set()
+    unique_chunks = []
+    for chunk in combined:
+        if chunk not in seen:
+            seen.add(chunk)
+            unique_chunks.append(chunk)
+
+    # Return top k unique chunks
+    return unique_chunks[:k]
+
+
+def ask_question(vector_store_data, question, chat_history=[]):
+    """
+    Takes vector store data, user question and chat history
     Returns answer based on document content only
+    Uses hybrid search for better retrieval quality
     """
-    # Find relevant chunks from document
-    relevant_chunks = vector_store.similarity_search(question, k=3)
-    context = "\n".join([chunk.page_content for chunk in relevant_chunks])
+    vector_store, bm25, chunks = vector_store_data
+
+    # Get relevant chunks using hybrid search
+    relevant_chunks = hybrid_search(
+        vector_store, bm25, chunks, question, k=5
+    )
+    context = "\n".join(relevant_chunks)
 
     # Build messages with chat history
     messages = [
         {
             "role": "system",
-            "content": """You are a legal document assistant. 
+            "content": """You are a legal document assistant.
             Answer questions based ONLY on the document content provided.
-            If the answer is not in the document, say 'I could not find that in the document.'
+            If the answer is not in the document, say 
+            'I could not find that in the document.'
             Keep answers simple and clear."""
         }
     ]
 
-    # Add chat history
     for human, assistant in chat_history:
         messages.append({"role": "user", "content": human})
         messages.append({"role": "assistant", "content": assistant})
 
-    # Add current question with context
     messages.append({
         "role": "user",
         "content": f"""Based on this document content:
@@ -74,11 +112,11 @@ Answer this question: {question}"""
 
 if __name__ == "__main__":
     from core.extractor import extract_text
-    
+
     text = extract_text("test.pdf")
-    print("Creating vector store...")
-    vs = create_vector_store(text)
-    print("Vector store created.")
-    
-    answer = ask_question(vs, "What is the rent amount?")
+    print("Creating vector store with hybrid search...")
+    vs_data = create_vector_store(text)
+    print("Done.")
+
+    answer = ask_question(vs_data, "What is the rent amount?")
     print("Answer:", answer)
