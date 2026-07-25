@@ -8,7 +8,7 @@ Legal documents are long, complex and full of clauses that are easy to miss. Leg
 
 ## Live Demo
 
-Try it live at legallite.streamlit.app
+Try it live at https://legallite.streamlit.app/
 
 ---
 
