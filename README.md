@@ -8,18 +8,26 @@ Legal documents are long, complex and full of clauses that are easy to miss. Leg
 
 ## Live Demo
 
-https://legallite.streamlit.app/
+Try it live at legallite.streamlit.app
 
 ---
 
-## Features
+## What LegalLite Can Do
 
-- Document Upload — Upload any PDF, JPG or PNG file including rental agreements, employment letters, NDAs, loan documents and insurance papers.
-- Plain English Summary — Reads the entire document and explains it in simple language anyone can understand. No legal jargon.
-- Risk Detection — Automatically identifies hidden penalties, auto-renewal clauses, unfair termination conditions, vague payment terms and one-sided conditions.
-- Multilingual Translation — Explains your document in Malayalam, Hindi, Tamil, Telugu, Kannada, Bengali, French and Arabic.
-- Voice Output — Reads the summary aloud in your chosen language using AI text-to-speech.
-- AI Document Chatbot — Ask any question about your document and get answers grounded in the actual document content. Built on a hybrid RAG pipeline combining FAISS semantic search and BM25 keyword search.
+**Understand any document**
+Upload a PDF or a photo of any legal document — rental agreements, employment letters, NDAs, loan documents, insurance papers. LegalLite reads it all.
+
+**Speak your language**
+Get your document explained in Malayalam, Hindi, Tamil, Telugu, Kannada, Bengali, French or Arabic. Legal clarity should not be limited by language.
+
+**Catch what you might miss**
+Hidden penalties. Auto-renewal traps. One-sided conditions. LegalLite flags the risks buried in the fine print before you sign.
+
+**Ask anything**
+Have a question about a specific clause? Just ask. The AI answers directly from your document — not from guesswork.
+
+**Listen instead of read**
+Not in the mood to read? Let LegalLite read it to you in your language with voice output.
 
 ---
 
@@ -116,8 +124,6 @@ Run the app
 ```
 streamlit run app.py
 ```
-
-Open your browser at http://localhost:8501
 
 ---
 
