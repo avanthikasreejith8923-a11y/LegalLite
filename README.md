@@ -1,8 +1,8 @@
 # LegalLite
 
-AI that reads the fine print so you don't have to.
+### AI that reads the fine print so you don't have to.
 
-Legal documents are long, complex and full of clauses that are easy to miss. LegalLite changes that — upload any contract, agreement or notice and instantly get a clear breakdown of what it means, what is risky, and what to watch out for.
+Most people sign legal documents without truly understanding what they are agreeing to. A single missed clause can cost thousands. LegalLite changes that — upload any contract, agreement or notice and get a clear, honest breakdown of exactly what it means, what is risky, and what to watch out for. No lawyers. No jargon. Just clarity.
 
 ---
 
@@ -15,19 +15,19 @@ Try it live at https://legallite.streamlit.app/
 ## What LegalLite Can Do
 
 **Understand any document**
-Upload a PDF or a photo of any legal document — rental agreements, employment letters, NDAs, loan documents, insurance papers. LegalLite reads it all.
+Upload a PDF or a photo of any legal document — rental agreements, employment letters, NDAs, loan documents, insurance papers. LegalLite reads it all, including tables and structured data buried inside.
 
 **Speak your language**
-Get your document explained in Malayalam, Hindi, Tamil, Telugu, Kannada, Bengali, French or Arabic. Legal clarity should not be limited by language.
+Legal clarity should not be limited by language. Get your document explained in Malayalam, Hindi, Tamil, Telugu, Kannada, Bengali, French or Arabic — instantly.
 
 **Catch what you might miss**
-Hidden penalties. Auto-renewal traps. One-sided conditions. LegalLite flags the risks buried in the fine print before you sign.
+Hidden penalties. Auto-renewal traps. One-sided conditions. Vague payment terms. LegalLite flags the risks buried in the fine print before you sign anything.
 
 **Ask anything**
-Have a question about a specific clause? Just ask. The AI answers directly from your document — not from guesswork.
+Have a question about a specific clause? Just ask. The AI answers directly from your document using a hybrid RAG pipeline — not from guesswork, not from hallucination.
 
 **Listen instead of read**
-Not in the mood to read? Let LegalLite read it to you in your language with voice output.
+Not in the mood to read? Let LegalLite read the summary to you in your language with AI voice output.
 
 ---
 
@@ -36,7 +36,7 @@ Not in the mood to read? Let LegalLite read it to you in your language with voic
 ```
 User uploads PDF or image
         |
-Text extraction using pdfplumber or EasyOCR
+Text and table extraction using pdfplumber or EasyOCR
         |
 LLM processing using Groq and Llama 3
         |
@@ -65,8 +65,8 @@ RAG Chatbot answers questions from document only
 | LLM | Groq API, Llama 3.3 70B |
 | RAG Pipeline | LangChain, FAISS, BM25 Hybrid Search |
 | Embeddings | sentence-transformers, all-MiniLM-L6-v2 |
-| PDF Extraction | pdfplumber |
-| Image OCR | EasyOCR |
+| PDF Extraction | pdfplumber with table extraction |
+| Image OCR | EasyOCR with confidence filtering |
 | Translation | deep-translator |
 | Voice Output | gTTS |
 | Language | Python 3.11 |
@@ -79,9 +79,9 @@ RAG Chatbot answers questions from document only
 legallite/
 ├── app.py                  Streamlit UI
 ├── core/
-│   ├── extractor.py        PDF and image text extraction
+│   ├── extractor.py        PDF, table and image text extraction
 │   ├── summarizer.py       LLM summarization and risk detection
-│   ├── rag.py              RAG pipeline with hybrid search
+│   ├── rag.py              Hybrid RAG pipeline and chatbot
 │   ├── translator.py       Multilingual translation
 │   └── voice.py            Text to speech output
 ├── requirements.txt        All dependencies
@@ -133,8 +133,9 @@ streamlit run app.py
 - Hybrid search combining semantic and keyword retrieval
 - Vector embeddings and semantic search
 - BM25 keyword ranking
+- Hierarchical document parsing with table extraction
 - Large Language Model integration
-- Optical Character Recognition
+- Optical Character Recognition with confidence filtering
 - Natural Language Processing
 - Prompt engineering
 - Multilingual AI
